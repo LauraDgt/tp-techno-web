@@ -1,0 +1,407 @@
+/* ======== 0. VARIABLES & GLOBALS ======== */
+/* On définit nos couleurs ici. 
+   Tu veux changer le look ? Change juste ces lignes ! */
+:root {
+    --couleur-principale: #e98ec0;   /* Un bleu dynamique */
+    --couleur-secondaire: #7d366f;  /* Un gris sobre */
+    --couleur-fond: #f8f9fa;      /* Gris très clair pour la page */
+    --couleur-carte: #ffffff;      /* Blanc pur pour les "blocs" */
+    --couleur-texte: #333;
+    --couleur-hero-fond: #343a40;  /* Fond sombre pour le "hero" */
+    --couleur-code-fond: #2d2d2d;  /* Fond sombre pour le code SQL */
+}
+
+/* Reset de base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    /* L'effet "scroll fluide" quand on clique sur la nav */
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    background-color: var(--couleur-fond);
+    color: var(--couleur-texte);
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ======== 1. BARRE DE NAVIGATION ======== */
+nav {
+    background: var(--couleur-carte);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky; /* Elle reste collée en haut */
+    top: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+}
+
+nav .logo {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: var(--couleur-principale);
+    text-decoration: none;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+/* C'est tes premiers "petits blocs qui cliquent" */
+nav ul li a {
+    display: block;
+    padding: 20px 15px;
+    text-decoration: none;
+    color: var(--couleur-texte);
+    font-weight: 500;
+    transition: all 0.3s ease; /* Animation ! */
+}
+
+nav ul li a:hover {
+    color: var(--couleur-principale);
+    background-color: #f4f4f4;
+}
+
+/* ======== 2. BOUTONS (Les blocs colorés) ======== */
+.btn {
+    display: inline-block;
+    background: var(--couleur-principale);
+    color: var(--couleur-carte);
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 5px; /* Coins arrondis */
+    font-weight: bold;
+    box-shadow: 0 3px 6px rgba(0,123,255, 0.3); /* Ombre colorée */
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background: #0056b3; /* Plus foncé au survol */
+    transform: translateY(-2px); /* Léger "pop" vers le haut */
+    box-shadow: 0 5px 10px rgba(0,123,255, 0.4);
+}
+
+.btn-secondaire {
+    display: inline-block;
+    background: var(--couleur-secondaire);
+    color: var(--couleur-carte);
+    padding: 8px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 0.9em;
+    margin: 5px 5px 0 0;
+    transition: all 0.3s ease;
+}
+
+.btn-secondaire:hover {
+    background: #5a6268;
+    transform: translateY(-1px);
+}
+
+/* ======== 3. SECTION HERO (BANNIÈRE) ======== */
+/* ======== 3. SECTION HERO (BANNIÈRE) - MISE À JOUR ======== */
+.hero-section {
+    background: var(--couleur-hero-fond);
+    color: var(--couleur-carte);
+    min-height: 60vh;
+    padding: 60px 0;
+    display: flex;
+    align-items: center; /* Centre verticalement */
+}
+
+/* On utilise Flexbox pour créer les 2 colonnes ! */
+.hero-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px; /* Espace entre le texte et l'image */
+}
+
+.hero-text {
+    flex: 1; /* Le texte prend la place disponible */
+    max-width: 60%; /* Le texte ne s'écrase pas trop */
+}
+
+.hero-text h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+.hero-text .sous-titre {
+    font-size: 1.5em;
+    margin-bottom: 30px;
+}
+
+.hero-image {
+    flex-basis: 300px; /* Taille de base pour l'image */
+}
+
+.hero-image img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover; /* L'image remplit le cadre sans être déformée */
+    border-radius: 50%; /* Transforme la photo en CERCLE */
+    border: 5px solid var(--couleur-principale); /* Joli contour de couleur */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* --- IMPORTANT : Le Responsive pour Mobile --- */
+/* Sur les écrans de moins de 768px (tablettes, mobiles) */
+@media (max-width: 768px) {
+    .hero-container {
+        flex-direction: column; /* Les colonnes passent l'une SOUS l'autre */
+        text-align: center; /* On centre tout sur mobile */
+    }
+    
+    .hero-text {
+        max-width: 100%; 
+        order: 2; /* Le texte passe SOUS l'image */
+    }
+
+    .hero-image {
+        order: 1; /* L'image passe AU-DESSUS */
+        margin-bottom: 20px;
+    }
+
+    .hero-image img {
+        width: 200px; /* Image plus petite sur mobile */
+        height: 200px;
+    }
+
+    .hero-text h1 {
+        font-size: 2.2em;
+    }
+    .hero-text .sous-titre {
+        font-size: 1.2em;
+    }
+}
+
+/* ======== 4. SECTIONS GÉNÉRALES ======== */
+main section {
+    padding: 60px 0;
+}
+
+/* Tous tes H2 (titres de section) */
+main h2 {
+    text-align: center;
+    font-size: 2.2em;
+    margin-bottom: 40px;
+    color: var(--couleur-texte);
+    position: relative;
+}
+
+/* Petite ligne déco sous les titres */
+main h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--couleur-principale);
+    margin: 10px auto 0;
+}
+
+/* Sections "Profil" et "Formation" (fond blanc) */
+.profil-section,
+.formation-section {
+    background: var(--couleur-carte);
+}
+
+.profil-section p {
+    font-size: 1.1em;
+    line-height: 1.7;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.formation-section article {
+    max-width: 800px;
+    margin: 0 auto 20px auto;
+}
+.formation-section h4 {
+    color: var(--couleur-principale);
+    font-size: 1.2em;
+}
+.formation-section p em {
+    font-size: 0.9em;
+    color: #666;
+}
+.formation-section hr {
+    margin: 20px auto;
+    border: 0;
+    border-top: 1px solid #eee;
+    max-width: 800px;
+}
+
+
+/* ======== 5. EXPÉRIENCES (LES CARTES "PROJETS") ======== */
+/* Voici tes "blocs" principaux ! */
+.projets-grille {
+    display: grid;
+    /* La grille magique responsive */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.projet-carte {
+    background: var(--couleur-carte);
+    border-radius: 8px; /* Coins arrondis */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* Ombre légère */
+    overflow: hidden; 
+    transition: all 0.3s ease; /* L'animation ! */
+}
+
+/* L'EFFET MAGIQUE AU SURVOL */
+.projet-carte:hover {
+    transform: translateY(-5px); /* Le bloc se soulève */
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1); /* L'ombre s'agrandit */
+}
+
+.projet-carte h3 {
+    font-size: 1.3em;
+    color: var(--couleur-principale);
+    margin-top: 15px;
+    padding: 0 20px;
+}
+
+.projet-carte .carte-sous-titre {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #777;
+    padding: 0 20px;
+    margin-bottom: 10px;
+}
+
+.projet-carte ul {
+    margin: 10px 20px 20px 40px;
+    font-size: 0.9em;
+}
+
+.projet-carte ul li {
+    margin-bottom: 5px;
+}
+
+.projet-carte .btn-secondaire {
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+/* Style pour le bloc de code SQL */
+.projet-carte pre.code-bloc {
+    background-color: var(--couleur-code-fond);
+    color: #f8f8f2;
+    padding: 15px;
+    margin: 15px 20px; 
+    border-radius: 5px;
+    overflow-x: auto; /* Scroll si le code est trop long */
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.85em;
+    text-align: left;
+}
+
+/* ======== 6. COMPÉTENCES (Les "pilules") ======== */
+/* Voici tes autres "petits blocs" */
+.competences-liste {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap; /* Passe à la ligne si pas de place */
+    justify-content: center;
+    gap: 15px;
+}
+
+.competences-liste li {
+    background: var(--couleur-carte);
+    padding: 10px 20px;
+    border-radius: 20px; /* Effet "pilule" */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.competences-liste li i {
+    color: var(--couleur-principale);
+    margin-right: 8px;
+    transition: color 0.3s ease;
+}
+
+/* L'EFFET MAGIQUE "EN COULEUR" */
+.competences-liste li:hover {
+    background: var(--couleur-principale); /* Le bloc devient bleu */
+    color: var(--couleur-carte);           /* Le texte devient blanc */
+    transform: scale(1.05);              /* Le bloc grossit un peu */
+}
+
+/* Il faut aussi que l'icône devienne blanche */
+.competences-liste li:hover i {
+    color: var(--couleur-carte);
+}
+
+/* ======== 7. SECTION CONTACT ======== */
+.contact-section {
+    background: var(--couleur-hero-fond);
+    color: var(--couleur-carte);
+    text-align: center;
+}
+/* On écrase le style H2 général pour cette section */
+.contact-section h2, 
+.contact-section h2::after {
+    color: var(--couleur-carte);
+    border-color: var(--couleur-carte);
+}
+
+.contact-section p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.contact-section .contact-info {
+    margin-bottom: 30px;
+}
+.contact-section .contact-info p {
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+
+.social-links {
+    margin-top: 30px;
+}
+
+.social-links a {
+    color: var(--couleur-carte);
+    font-size: 2em;
+    margin: 0 15px;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--couleur-principale); /* L'icône devient bleue */
+    transform: scale(1.2); /* L'icône grossit */
+}
+
+/* ======== 8. PIED DE PAGE ======== */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #212529;
+    color: #aaa;
+    font-size: 0.9em;
+}
